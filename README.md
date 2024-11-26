@@ -126,8 +126,6 @@ Contoh Response:
 }
 ```
 
-![alt text](https://github.com/Aziz-Rahman/backend-marketplace-sederhana-aziz-rahman/blob/main/screenshoot/addProduct-merchant.png)
-
 
 #UPDATE PRODUCT
 ----------------
