@@ -15,10 +15,12 @@ composer install
 php artisan key:generate --ansi
 
 #Sesuaikan file .env dengan database yang akan dibuat
+
 php artisan migrate
 
 #RUNING ...
 php artisan serve atau 
+
 php artisan serve --port=9090 untuk menjalankan di port lain
 
 #REGISTER
