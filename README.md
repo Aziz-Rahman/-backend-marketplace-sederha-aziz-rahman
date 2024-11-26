@@ -36,4 +36,4 @@ http://localhost:9090/api/login
 
 #DELETE PRODUCT
 [http://localhost:9090/api/login](http://localhost:9090/api/merchant/deleteProduct/9)
-![alt text](https://github.com/Aziz-Rahman/backend-marketplace-sederhana-aziz-rahman/tree/main/screenshoot/deleteProduct-merchant.png)
+![alt text](https://github.com/Aziz-Rahman/backend-marketplace-sederhana-aziz-rahman/blob/main/screenshoot/deleteProduct-merchant.png)
