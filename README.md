@@ -1,8 +1,9 @@
-KETENTUAN PROJECT
+KETENTUAN PROJECT / API
 ------------------
 - Setiap transaksi produk diatas 15000 akan mendapatkan bebas ongkir
 - Jika transaksi produk diatas 50000 akan mendapatkan diskon sebesar 10%
 - Diskon per item tidak diberlakukan disini (namun kolom untuk diskon per item sudah disediakanm jika sewaktu2 dibutuhkan). Jadi disini hanya berlaku diskon transaksi setelah checkout & shipping cost pada saat checkout
+- Apabila migrasi database gagal, maka bisa langsung diimport SQL nya di folder DB-SQL 
 
 Langkah-langkah menjalankan project
 ------------------------------------
