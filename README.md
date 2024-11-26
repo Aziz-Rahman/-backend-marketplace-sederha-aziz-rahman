@@ -19,7 +19,9 @@ php artisan serve --port=9090 untuk menjalankan di port lain
 POST | http://localhost:9090/api/register
 
 Contoh Request
+
 Body
+
 Raw (JSON)
 ```
 {
@@ -45,7 +47,9 @@ Contoh Response:
 POST | http://localhost:9090/api/login
 
 Contoh Request
+
 Body
+
 Raw (JSON)
 ```
 {
@@ -69,11 +73,15 @@ Contoh Response:
 POST | http://localhost:9090/api/merchant/product
 
 Headers
+
 Content-Type : application/json
+
 Authorization : bearer [TOKEN]
 
 Contoh Request
+
 Body
+
 Raw (JSON)
 ```
 {
@@ -109,11 +117,15 @@ Contoh Response:
 POST | http://localhost:9090/api/merchant/updateProduct
 
 Headers
+
 Content-Type : application/json
+
 Authorization : bearer [TOKEN]
 
 Contoh Request
+
 Body
+
 Raw (JSON)
 ```
 {
