@@ -19,6 +19,8 @@ php artisan serve --port=9090 untuk menjalankan di port lain
 POST | http://localhost:9090/api/register
 
 Contoh Request
+Body
+Raw (JSON)
 ```
 {
     "name": "Customer Z",
@@ -27,6 +29,7 @@ Contoh Request
     "role": "customer"
 }
 ```
+* role : (merchant atau customer)
 
 Contoh Response:
 ```
@@ -42,6 +45,8 @@ Contoh Response:
 POST | http://localhost:9090/api/login
 
 Contoh Request
+Body
+Raw (JSON)
 ```
 {
     "email": "customer_z@example.com",
@@ -62,12 +67,70 @@ Contoh Response:
 #ADD PRODUCT
 -------------
 POST | http://localhost:9090/api/merchant/product
+
+Headers
+Content-Type : application/json
+Authorization : bearer [TOKEN]
+
+Contoh Request
+Body
+Raw (JSON)
+```
+{
+    "title": "Barang Kiriman",
+    "description": "Ini merupakan barang kiriman.",
+    "price": 66654,
+    "stock": 5
+}
+```
+
+Contoh Response:
+```
+{
+    "message": "Product created successfully",
+    "product": {
+        "title": "Barang Kiriman",
+        "description": "Ini merupakan barang kiriman.",
+        "price": 66654,
+        "merchant_id": 3,
+        "stock": 5,
+        "updated_at": "2024-11-26T12:40:49.000000Z",
+        "created_at": "2024-11-26T12:40:49.000000Z",
+        "id": 1
+    }
+}
+```
+
 ![alt text](https://github.com/Aziz-Rahman/backend-marketplace-sederhana-aziz-rahman/blob/main/screenshoot/addProduct-merchant.png)
 
 
 #UPDATE PRODUCT
 ----------------
-http://localhost:9090/api/merchant/updateProduct
+POST | http://localhost:9090/api/merchant/updateProduct
+
+Headers
+Content-Type : application/json
+Authorization : bearer [TOKEN]
+
+Contoh Request
+Body
+Raw (JSON)
+```
+{
+    "id": 1,
+    "title": "Barang Kiriman diubah !!!",
+    "description": "Ini merupakan barang kiriman.",
+    "price": 66654,
+    "stock": 53
+}
+```
+
+Contoh Response:
+```
+{
+    "message": "Update product successfully"
+}
+```
 ![alt text](https://github.com/Aziz-Rahman/backend-marketplace-sederhana-aziz-rahman/blob/main/screenshoot/updateProduct-merchant.png)
 
 
