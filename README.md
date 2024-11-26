@@ -5,9 +5,9 @@ KETENTUAN PROJECT / API
 ------------------
 - Api ini menggunakan Token/JWT
 - Setiap API diberikan validasi token/JWT
-- Merchant dapat create product, update, & delete
-- Customer dapat melihat list produk
-- Merchant dapat melihat customer siapa saja yang membeli
+- Ada 2 aktor disini yaitu merchant & customer
+- Merchant dapat create product, update, delete, & dapat melihat customer siapa saja yang membeli
+- Customer dapat melihat list produk, add to cart, & checkout
 - Setiap transaksi produk diatas 15000 maka customer akan mendapatkan bebas ongkir
 - Jika transaksi produk diatas 50000 maka customer akan mendapatkan diskon sebesar 10%
 - Diskon per item tidak diberlakukan disini (namun kolom untuk diskon per item sudah disediakanm jika sewaktu2 dibutuhkan). Jadi disini hanya berlaku diskon transaksi setelah checkout & shipping cost pada saat checkout
