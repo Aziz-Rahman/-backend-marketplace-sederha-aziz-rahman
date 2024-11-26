@@ -1,3 +1,9 @@
+KETENTUAN PROJECT
+------------------
+- Setiap transaksi produk diatas 15000 akan mendapatkan bebas ongkir
+- Jika transaksi produk diatas 50000 akan mendapatkan diskon sebesar 10%
+- Diskon per item tidak diberlakukan disini (namun kolom untuk diskon per item sudah disediakanm jika sewaktu2 dibutuhkan). Jadi disini hanya berlaku diskon transaksi setelah checkout & shipping cost pada saat checkout
+
 Langkah-langkah menjalankan project
 ------------------------------------
 
@@ -143,7 +149,6 @@ Contoh Response:
     "message": "Update product successfully"
 }
 ```
-![alt text](https://github.com/Aziz-Rahman/backend-marketplace-sederhana-aziz-rahman/blob/main/screenshoot/updateProduct-merchant.png)
 
 
 #DELETE PRODUCT
