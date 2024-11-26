@@ -37,3 +37,13 @@ http://localhost:9090/api/login
 #DELETE PRODUCT
 [http://localhost:9090/api/login](http://localhost:9090/api/merchant/deleteProduct/9)
 ![alt text](https://github.com/Aziz-Rahman/backend-marketplace-sederhana-aziz-rahman/blob/main/screenshoot/deleteProduct-merchant.png)
+
+
+#VIEW ORDER (CUSTOMER YANG SUDAH ORDER)
+GET | http://localhost:9090/api/merchant/viewOrders
+![alt text](https://github.com/Aziz-Rahman/backend-marketplace-sederhana-aziz-rahman/blob/main/screenshoot/viewCustomerOrder-merchant.png)
+
+
+#SHOW PRODUCT
+GET | http://localhost:9090/api/customer/products
+![alt text](https://github.com/Aziz-Rahman/backend-marketplace-sederhana-aziz-rahman/blob/main/screenshoot/showProduct.png)
