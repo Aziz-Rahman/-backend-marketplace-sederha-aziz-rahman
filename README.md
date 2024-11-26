@@ -181,3 +181,105 @@ Contoh Response
 #SHOW PRODUCT
 -------------
 GET | http://localhost:9090/api/customer/products
+
+Headers
+
+Content-Type : application/json
+
+Authorization : bearer [TOKEN]
+
+Contoh Response
+```
+[
+    {
+        "id": 1,
+        "merchant_id": 1,
+        "image": null,
+        "title": "Produk 1 diubah judulnya",
+        "description": "Deskripsi produk contoh 1.",
+        "price": 93000,
+        "stock": 11,
+        "created_at": "2024-11-25T12:49:41.000000Z",
+        "updated_at": "2024-11-26T04:00:23.000000Z"
+    },
+    {
+        "id": 2,
+        "merchant_id": 1,
+        "image": null,
+        "title": "Produk Contoh 2",
+        "description": "Deskripsi produk contoh 2.",
+        "price": 68000,
+        "stock": 52,
+        "created_at": "2024-11-25T12:52:13.000000Z",
+        "updated_at": "2024-11-25T12:52:13.000000Z"
+    },
+...
+
+```
+
+#ADD TO CART
+--------------
+POST | http://localhost:9090/api/customer/cart
+
+Headers
+
+Content-Type : application/json
+
+Authorization : bearer [TOKEN]
+
+Contoh Request
+
+Body
+
+Raw (JSON)
+```
+{
+    "product_id": 5,
+    "quantity": 1
+}
+```
+
+Contoh Response:
+```
+{
+    "status": "success",
+    "message": "Item added to cart"
+}
+```
+*Jika END POINT ini disending maka quantity akan bertambah untuk produk yang sama
+
+#CHECKOUT
+--------------
+POST | http://localhost:9090/api/customer/checkout
+
+Headers
+
+Content-Type : application/json
+
+Authorization : bearer [TOKEN]
+
+Contoh Request
+
+Body
+
+Raw (JSON)
+```
+{
+    "customer_address": "Jl. Kesuksesan No.99",
+    "customer_city": "Depok",
+    "postal_code": "44456",
+    "customer_phone": "0898 5436 8888"
+}
+```
+
+Contoh Response:
+```
+{
+    "status": "success",
+    "message": "Invoice created successfully!",
+    "invoice": 6
+}
+```
+
+
+
