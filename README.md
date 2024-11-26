@@ -16,19 +16,52 @@ php artisan serve --port=9090 untuk menjalankan di port lain
 
 #REGISTER
 -----------
-http://localhost:9090/api/register
+POST | http://localhost:9090/api/register
+
+Contoh Request
+```
+{
+    "name": "Customer Z",
+    "email": "customer_z@example.com",
+    "password": "password123",
+    "role": "customer"
+}
+```
+
+Contoh Response:
+```
+{
+    "message": "User registered successfully"
+}
+```
 ![alt text](https://github.com/Aziz-Rahman/backend-marketplace-sederhana-aziz-rahman/blob/main/screenshoot/register.png)
 
 
 #LOGIN
 -----------
-http://localhost:9090/api/login
+POST | http://localhost:9090/api/login
+
+Contoh Request
+```
+{
+    "email": "customer_z@example.com",
+    "password": "password123"
+}
+```
+
+Contoh Response:
+```
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXBpL2xvZ2luIiwiaWF0IjoxNzMyNjI0MTE1LCJleHAiOjE3MzI2Mjc3MTUsIm5iZiI6MTczMjYyNDExNSwianRpIjoiWUNoc2FCbDhNOXVUejlYZyIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.A3Vj1-ay5jXu3DjBPe_eeUZLw99lXhieDF6N-hreNrA"
+}
+```
+*Token tsb akan digubakan untuk proses2 didalam sistem
 ![alt text](https://github.com/Aziz-Rahman/backend-marketplace-sederhana-aziz-rahman/blob/main/screenshoot/login.png)
 
 
 #ADD PRODUCT
 -------------
-http://localhost:9090/api/merchant/product
+POST | http://localhost:9090/api/merchant/product
 ![alt text](https://github.com/Aziz-Rahman/backend-marketplace-sederhana-aziz-rahman/blob/main/screenshoot/addProduct-merchant.png)
 
 
