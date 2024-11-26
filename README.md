@@ -25,17 +25,17 @@ http://localhost:9090/api/login
 
 
 #ADD PRODUCT
-[http://localhost:9090/api/login](http://localhost:9090/api/merchant/product)
+http://localhost:9090/api/merchant/product
 ![alt text](https://github.com/Aziz-Rahman/backend-marketplace-sederhana-aziz-rahman/blob/main/screenshoot/addProduct-merchant.png)
 
 
 #UPDATE PRODUCT
-[http://localhost:9090/api/login](http://localhost:9090/api/merchant/updateProduct)
+http://localhost:9090/api/merchant/updateProduct
 ![alt text](https://github.com/Aziz-Rahman/backend-marketplace-sederhana-aziz-rahman/blob/main/screenshoot/updateProduct-merchant.png)
 
 
 #DELETE PRODUCT
-[http://localhost:9090/api/login](http://localhost:9090/api/merchant/deleteProduct/9)
+http://localhost:9090/api/merchant/deleteProduct/9
 ![alt text](https://github.com/Aziz-Rahman/backend-marketplace-sederhana-aziz-rahman/blob/main/screenshoot/deleteProduct-merchant.png)
 
 
