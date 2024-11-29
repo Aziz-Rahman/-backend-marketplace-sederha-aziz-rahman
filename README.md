@@ -22,6 +22,8 @@ composer install
 
 php artisan key:generate --ansi
 
+php artisan jwt:secret // generate ulang jwt secret
+
 #Sesuaikan file .env dengan database yang akan dibuat
 
 php artisan migrate
