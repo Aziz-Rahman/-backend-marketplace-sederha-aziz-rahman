@@ -18,7 +18,6 @@ class ProductController extends Controller
 
     public function productDetail($id)
     {
-        //get product by ID
         $product = Product::findOrFail($id);
         return response()->json($product);
     }
@@ -52,7 +51,6 @@ class ProductController extends Controller
 
         } catch (\Exception $e) {
 
-            // Kembalikan respon JSON dengan kesalahan validasi
             return response()->json([
                 'error' => 'Error',
                 'messages' => $e->getMessage()
@@ -114,7 +112,6 @@ class ProductController extends Controller
 
         } catch (\Exception $e) {
 
-            // Kembalikan respon JSON dengan kesalahan validasi
             return response()->json([
                 'error' => 'Error',
                 'messages' => $e->getMessage()

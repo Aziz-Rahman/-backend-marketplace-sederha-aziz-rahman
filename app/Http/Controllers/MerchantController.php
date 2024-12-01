@@ -19,35 +19,45 @@ class MerchantController extends Controller
             return response()->json(['error' => 'Unauthorized'], 403);
         }
 
-        $products = $user->products;
-        $customerOrders  = [];
+        try {
 
-        foreach ($products as $product)
-        {
-            foreach ($product->orderDetails as $orderDetail)
+            $products = $user->products;
+            $customerOrders  = [];
+
+            foreach ($products as $product)
             {
-                if ($orderDetail->checkout) 
+                foreach ($product->orderDetails as $orderDetail)
                 {
-                    $customerId = $orderDetail->checkout->customer_id;
-                    $customerName = $orderDetail->checkout->customer_name; // Assuming there's a customer_name field
-
-                    // Check if this customer_id is already in the array
-                    if (!isset($customerOrders[$customerId])) 
+                    if ($orderDetail->checkout) 
                     {
-                        // Add customer data if not already present
-                        $customerOrders[$customerId] = [
-                            'customerID' => $customerId,
-                            'customerName' => $customerName,
-                        ];
+                        $customerId = $orderDetail->checkout->customer_id;
+                        $customerName = $orderDetail->checkout->customer_name; // Assuming there's a customer_name field
+
+                        // Check if this customer_id is already in the array
+                        if (!isset($customerOrders[$customerId])) 
+                        {
+                            // Add customer data if not already present
+                            $customerOrders[$customerId] = [
+                                'customerID' => $customerId,
+                                'customerName' => $customerName,
+                            ];
+                        }
                     }
-                }
+                }   
             }   
-        }   
 
-        // Convert associative array to a simple array
-        $customerOrderList = array_values($customerOrders);
+            // Convert associative array to a simple array
+            $customerOrderList = array_values($customerOrders);
 
-        // Return the grouped customer orders
-        return response()->json(['customerOrder' => $customerOrderList]);
+            // Return the grouped customer orders
+            return response()->json(['customerOrder' => $customerOrderList]);
+            
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'error' => 'Error',
+                'messages' => $e->getMessage()
+            ], 422);
+        }
     }
 }

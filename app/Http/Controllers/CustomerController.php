@@ -303,7 +303,7 @@ class CustomerController extends Controller
         } catch (\Exception $e) {
 
             DB::rollBack();
-            // Kembalikan respon JSON dengan kesalahan validasi
+            
             return response()->json([
                 'error' => 'Error',
                 'messages' => $e->getMessage()

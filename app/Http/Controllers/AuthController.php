@@ -11,21 +11,30 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:6',
-            'role' => 'required|in:merchant,customer'
-        ]);
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|string|min:6',
+                'role' => 'required|in:merchant,customer'
+            ]);
 
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'role' => $validated['role'],
-        ]);
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password']),
+                'role' => $validated['role'],
+            ]);
 
-        return response()->json(['message' => 'User registered successfully']);
+            return response()->json(['message' => 'User registered successfully']);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'error' => 'Error',
+                'messages' => $e->getMessage()
+            ], 422);
+        }
     }
 
     public function login(Request $request)
@@ -46,6 +55,7 @@ class AuthController extends Controller
             JWTAuth::invalidate(JWTAuth::getToken());
 
             return response()->json(['message' => 'Successfully logged out'], 200);
+            
         } catch (\Exception $e) {
             return response()->json(['error' => 'Logout failed'], 500);
         }
