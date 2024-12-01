@@ -30,13 +30,8 @@ class OrderDetail extends Model
     }
 
     // Relasi ke produk
-    // public function product()
-    // {
-    //     return $this->belongsTo(Product::class);
-    // }
-
-    public function products()
+    public function product()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsTo(Product::class);
     }
 }

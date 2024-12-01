@@ -12,12 +12,6 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CustomerController extends Controller
 {
-    public function listProducts()
-    {
-        $products = Product::all();
-        return response()->json($products);
-    }
-
     public function addToCart(Request $request)
     {
         $user = JWTAuth::parseToken()->authenticate();
@@ -69,16 +63,144 @@ class CustomerController extends Controller
                 ]);
             }
 
-            return response()->json(['status' => 'success', 'message' => 'Item added to cart'], 201);
+            return response()->json([
+                'status' => 'success', 
+                'message' => 'Item added to cart'
+            ], 201);
 
         } catch (\Exception $e) {
 
-            // Kembalikan respon JSON dengan kesalahan validasi
             return response()->json([
                 'error' => 'Error',
                 'messages' => $e->getMessage()
             ], 422);
         }
+    }
+
+    public function getCartItems()
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if ($user->role !== 'customer') {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+        
+        $cartItems = Cart::where('customer_id', $user->id)
+            ->with('product') // Pastikan sudah mendefinisikan relasi produk
+            ->get();
+
+        return response()->json([
+            'status' => 'success', 
+            'cartItems' => $cartItems
+        ], 201);
+    }
+
+    // Update item di keranjang
+    public function updateCart(Request $request, $id)
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if ($user->role !== 'customer') {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        try {
+
+            $validated = $request->validate([
+                'quantity' => 'required|integer|min:1',
+            ]);
+
+            $cart = Cart::where('id', $id)->where('customer_id', $user->id)->first();
+
+            if (!$cart) 
+            {
+                return response()->json([
+                    'message' => 'Cart item not found'
+                ], 404);
+            }
+
+            $cart->quantity = $validated['quantity'];
+
+            $product = Product::find($cart->product_id);
+
+            // Pengecekan stok 1
+            if ($cart->quantity > $product->stock) 
+            {
+                return response()->json([
+                    'status' => 'fail', 
+                    'message' => 'Insufficient stock'
+                ], 201);
+            }
+
+            $cart->save();
+
+            // Hitung total belanja
+            $total = Cart::where('customer_id', $user->id)
+            ->sum(\DB::raw('quantity * price')); // bisa sertakan diskon jg jika kolom diskon dipakai
+
+            return response()->json([
+                'status' => 'success', 
+                'message' => 'Cart updated', 
+                'product' => $product->title,
+                'qty' => $cart->quantity,
+                'total' => $total
+            ], 201);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'error' => 'Error',
+                'messages' => $e->getMessage()
+            ], 422);
+        }
+    }
+
+    // Hapus item dari keranjang
+    public function destroyCart($id)
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if ($user->role !== 'customer') {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $cart = Cart::where('id', $id)->where('customer_id', $user->id)->first();
+
+        if (!$cart) 
+        {
+            return response()->json(['message' => 'Cart item not found'], 404);
+        }
+
+        $cart->delete();
+
+        $product = Product::find($cart->product_id);
+
+        // Hitung total belanja
+        $total = Cart::where('customer_id', $user->id)
+        ->sum(\DB::raw('quantity * price'));
+ 
+        return response()->json([
+            'status' => 'success', 
+            'message' => 'Cart item removed', 
+            'productDeleted' => $product->title,
+            'total' => $total
+        ], 201);
+    }
+
+    public function getCartCount()
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if ($user->role !== 'customer') {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $cartCount = Cart::where('customer_id', $user->id)->sum('quantity');
+
+        return response()->json([
+            'status' => 'success', 
+            'count' => $cartCount
+        ], 201);
     }
 
     public function checkout(Request $request)
