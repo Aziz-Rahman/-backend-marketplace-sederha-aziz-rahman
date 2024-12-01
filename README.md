@@ -33,6 +33,33 @@ php artisan serve atau
 
 php artisan serve --port=9090 untuk menjalankan di port lain
 
+DAFTAR END POINT YANG TERSEDIA
+-------------------------------
+#MERCHAN
+
+- POST | http://localhost:9090/api/register
+- POST | http://localhost:9090/api/login
+- POST | http://localhost:9090/api/merchant/product
+- POST | http://localhost:9090/api/merchant/updateProduct
+- POST | http://localhost:9090/api/merchant/deleteProduct/4
+- GET | http://localhost:9090/api/merchant/viewOrders
+- GET | http://localhost:9090/api/logout
+
+#CUSTOMER
+
+- POST | http://localhost:9090/api/register
+- POST | http://localhost:9090/api/login
+- GET | http://localhost:9090/api/products // (Tanpa Login)
+- GET | http://localhost:9090/api/product/2 // (Tanpa Login)
+- POST | http://localhost:9090/api/customer/cart // ADD TO CART
+- GET | http://localhost:9090/api/customer/cart/cartItems
+- GET | http://localhost:9090/api/customer/cart/cartCount // Jumlah cart item
+- POST | http://localhost:9090/api/customer/cart/update/2
+- POST | http://localhost:9090/api/customer/cart/delete/5
+- POST | http://localhost:9090/api/customer/checkout
+- GET | http://localhost:9090/api/logout
+
+
 #REGISTER
 -----------
 POST | http://localhost:9090/api/register
@@ -128,6 +155,57 @@ Contoh Response:
 }
 ```
 
+#ALL PRODUCT
+--------------
+GET | http://localhost:9090/api/products
+
+Contoh Response:
+```
+[
+    {
+        "id": 1,
+        "merchant_id": 1,
+        "image": null,
+        "title": "Produk 1 diubah judulnya",
+        "description": "Deskripsi produk contoh 1.",
+        "price": 93000,
+        "stock": 11,
+        "created_at": "2024-11-25T12:49:41.000000Z",
+        "updated_at": "2024-11-26T04:00:23.000000Z"
+    },
+    {
+        "id": 2,
+        "merchant_id": 1,
+        "image": null,
+        "title": "Produk Contoh 2",
+        "description": "Deskripsi produk contoh 2.",
+        "price": 68000,
+        "stock": 52,
+        "created_at": "2024-11-25T12:52:13.000000Z",
+        "updated_at": "2024-11-25T12:52:13.000000Z"
+    },
+    ...
+]
+```
+
+#DETAIL PRODUK
+---------------
+GET | http://localhost:9090/api/product/2
+
+Contoh Response:
+```
+{
+    "id": 2,
+    "merchant_id": 1,
+    "image": null,
+    "title": "Produk Contoh 2",
+    "description": "Deskripsi produk contoh 2.",
+    "price": 68000,
+    "stock": 52,
+    "created_at": "2024-11-25T12:52:13.000000Z",
+    "updated_at": "2024-11-25T12:52:13.000000Z"
+}
+```
 
 #UPDATE PRODUCT
 ----------------
@@ -262,7 +340,148 @@ Contoh Response:
     "message": "Item added to cart"
 }
 ```
-*Jika END POINT ini disending maka quantity akan bertambah untuk produk yang sama
+*Jika END POINT ini disending maka quantity akan bertambah untuk produk yang sama dan akan menambah row untuk berbeda produk
+
+
+#GET CART ITEMS
+---------------
+GET | http://localhost:9090/api/customer/cartItems
+
+Headers
+
+Content-Type : application/json
+
+Authorization : bearer [TOKEN]
+
+Contoh Request
+
+Body
+
+(kosong)
+
+Contoh Response:
+```
+{
+    "status": "success",
+    "cartItems": [
+        {
+            "id": 2,
+            "customer_id": 4,
+            "session_id": null,
+            "product_id": 6,
+            "quantity": 2,
+            "price": "46890.00",
+            "discount": 0,
+            "created_at": "2024-11-29T15:25:34.000000Z",
+            "updated_at": "2024-11-29T15:25:36.000000Z",
+            "product": {
+                "id": 6,
+                "merchant_id": 3,
+                "image": null,
+                "title": "Barang Bagus nih",
+                "description": "Hehehehe hihihihii xxxxxxxxxx.",
+                "price": 46890,
+                "stock": 19,
+                "created_at": "2024-11-26T04:47:27.000000Z",
+                "updated_at": "2024-11-26T04:47:27.000000Z"
+            }
+        },
+        ...
+    ]
+}
+```
+
+#UPDATE CART
+---------------
+POST | http://localhost:9090/api/customer/cart/update/{id}
+
+Headers
+
+Content-Type : application/json
+
+Authorization : bearer [TOKEN]
+
+Contoh Request
+
+Body
+
+Raw (JSON)
+```
+{
+    "quantity": 3 // update jumlah qty
+}
+```
+
+Contoh Response:
+```
+{
+    "status": "success",
+    "message": "Cart updated",
+    "product": "Barang Berbahaya",
+    "qty": 3,
+    "total": "2541780.00"
+}
+```
+
+// Jika jumlah quantity yang dimasukan melebihi stock yang tersedia, maka akan mendapatkan response:
+```
+{
+    "status": "fail",
+    "message": "Insufficient stock"
+}
+```
+
+#DELETE CART
+-------------
+POST | http://localhost:9090/api/customer/cart/delete/{id}
+
+Headers
+
+Content-Type : application/json
+
+Authorization : bearer [TOKEN]
+
+Contoh Request
+
+Body
+
+(Kosong)
+
+Contoh Response:
+```
+{
+    "status": "success",
+    "message": "Cart item removed",
+    "productDeleted": "Barang Berbahaya",
+    "total": "2541780.00"
+}
+```
+
+#GET CART COUNT (JUMLAH CART ITEM)
+---------------
+GET | http://localhost:9090/api/customer/cart/cartCount
+
+Headers
+
+Content-Type : application/json
+
+Authorization : bearer [TOKEN]
+
+Contoh Request
+
+Body
+
+(Kosong)
+
+Contoh Response:
+```
+{
+    "status": "success",
+    "count": "6"
+}
+```
+
+
 
 #CHECKOUT
 --------------
